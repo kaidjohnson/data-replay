@@ -1,6 +1,6 @@
 /* jshint esversion:6 */
 
-const io = require('socket.io')(3005);
+const io = require('socket.io')(3004);
 const Twitter = require('node-tweet-stream');
 const stream = new Twitter(require('./config.json'));
 
