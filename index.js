@@ -15,10 +15,10 @@ const match = (d, string) => {
 
 const type = (d) => {
   if (match(d, 'trump')) {
-    return (match(d, 'clinton')) ? 'B' : 'C';
+    return (match(d, 'clinton')) ? 'B' : 'A';
   }
   else if (match(d, 'clinton')) {
-    return 'A';
+    return 'C';
   }
   else {
     return null;
@@ -42,13 +42,28 @@ io.on('connection', () => {
         state: 'active'
       }));
 
-      setTimeout(() => {
-        io.emit('update', tweet.id, 'inactive');
-      }, 2000);
+      if (Math.random() < 0.5 && t === 'A') {
+        setTimeout(() => {
+          io.emit('transition', tweet.id, 'B');
+        }, 2500);
 
-      setTimeout(() => {
-        io.emit('update', tweet.id, 'dropoff');
-      }, 5000);
+        setTimeout(() => {
+          io.emit('update', tweet.id, 'inactive');
+        }, 7500);
+
+        setTimeout(() => {
+          io.emit('update', tweet.id, 'dropoff');
+        }, 10000);
+      }
+      else {
+        setTimeout(() => {
+          io.emit('update', tweet.id, 'inactive');
+        }, 2500);
+
+        setTimeout(() => {
+          io.emit('update', tweet.id, 'dropoff');
+        }, 5000);
+      }
     }
   });
 
